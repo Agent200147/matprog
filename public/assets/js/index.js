@@ -3,7 +3,7 @@
 window.addEventListener('load', () => {
 
     const myWorkerMonte = new Worker("assets/js/MK.js");
-    const myWorkerAnnealing = new Worker("assets/js/AN.js/");
+    const myWorkerAnnealing = new Worker("assets/js/AN.js");
 
     const form = document.getElementById('form')
     const resultMonte = document.getElementById('resultMonte')
