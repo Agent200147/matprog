@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/styles/index.css">
+    <title>Document</title>
+</head>
+<body>
+<div class="wrapper">
+    <h1 class="title text-medium">Реализация и исследование методов
+        <br>
+        Монте-Карло и имитации отжига
+
+    </h1>
+    <form action="" method="post" id="form" class="form">
+        <div class="commonData main-block">
+            <h2 class="title commonData__title text-medium">Общие входные данные:</h2>
+            <div class="commonData__inputs">
+                <div class="borders">
+                    Границы: <span class="scobka">(</span>
+                    <input required type="text" placeholder="0" name="leftBorder" class="leftBorder"/>
+                    <span class="tz">;</span>
+                    <input required type="text" placeholder="0" name="rightBorder" class="rightBorder"/>
+                    <span class="scobka">)</span>
+                </div>
+                <div class="function">
+                    Функция: <input required type="text" placeholder="x^2 + y^2 - 5" name="fnInput" class="fn"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="methods">
+            <div class="monteKarlo main-block">
+                <h2 class="title commonData__title text-medium">Монте-Карло:</h2>
+                <input required type="text" placeholder="Кол-во итераций" name="monteIteration"/>
+            </div>
+            <div class="annealing main-block">
+                <h2 class="title commonData__title text-medium">Имитация отжига:</h2>
+                <div class="annealing__inputs">
+                    <input required type="text" placeholder="Tmax" name="annealingT"/>
+                    <input required type="text" placeholder="r" name="annealingR"/>
+                    <input required type="text" placeholder="L" name="annealingL"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button type="submit" class="btn btn-submit" id="btnSubmit">Начать подсчет!</button>
+<!--            <button type="button" class="btn btn-submit" id="btnStop">Стоп</button>-->
+            <button type="button" class="btn btn-clear" id="btnClear">Очистить результаты</button>
+            <button type="button" class="btn btn-reset" id="btnReset">Сбросить форму</button>
+        </div>
+    </form>
+
+    <section class="results">
+        <div class="monte__results" id="resultMonte">
+<!--            <div class="loader" id="monteLoader">-->
+<!--                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:block;"-->
+<!--                     width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">-->
+<!--                    <defs>-->
+<!--                        <path id="path" d="M50 15A15 35 0 0 1 50 85A15 35 0 0 1 50 15" fill="none"></path>-->
+<!--                        <path id="patha" d="M0 0A15 35 0 0 1 0 70A15 35 0 0 1 0 0" fill="none"></path>-->
+<!--                    </defs>-->
+<!--                    <g transform="rotate(0 50 50)">-->
+<!--                        <use xlink:href="#path" stroke="#000000" stroke-width="3"></use>-->
+<!--                    </g>-->
+<!--                    <g transform="rotate(60 50 50)">-->
+<!--                        <use xlink:href="#path" stroke="#000000" stroke-width="3"></use>-->
+<!--                    </g>-->
+<!--                    <g transform="rotate(120 50 50)">-->
+<!--                        <use xlink:href="#path" stroke="#000000" stroke-width="3"></use>-->
+<!--                    </g>-->
+<!--                    <g transform="rotate(0 50 50)">-->
+<!--                        <circle cx="50" cy="15" r="9" fill="#e15b64">-->
+<!--                            <animateMotion dur="1s" repeatCount="indefinite" begin="0s">-->
+<!--                                <mpath xlink:href="#patha"></mpath>-->
+<!--                            </animateMotion>-->
+<!--                        </circle>-->
+<!--                    </g>-->
+<!--                    <g transform="rotate(60 50 50)">-->
+<!--                        <circle cx="50" cy="15" r="9" fill="#f8b26a">-->
+<!--                            <animateMotion dur="1s" repeatCount="indefinite" begin="-0.16666666666666666s">-->
+<!--                                <mpath xlink:href="#patha"></mpath>-->
+<!--                            </animateMotion>-->
+<!--                        </circle>-->
+<!--                    </g>-->
+<!--                    <g transform="rotate(120 50 50)">-->
+<!--                        <circle cx="50" cy="15" r="9" fill="#abbd81">-->
+<!--                            <animateMotion dur="1s" repeatCount="indefinite" begin="-0.3333333333333333s">-->
+<!--                                <mpath xlink:href="#patha"></mpath>-->
+<!--                            </animateMotion>-->
+<!--                        </circle>-->
+<!--                    </g>-->
+<!--                </svg>-->
+<!--            </div>-->
+
+
+<!--            <div class="result main-block">-->
+<!--                <h2>Результат 1</h2>-->
+<!--                <div class="main-block main-block-white">-->
+<!--                    <div>xMin = <strong>1.042679</strong></div>-->
+<!--                    <div>yMin = <strong>1.012573</strong></div>-->
+<!--                    <div>F = <strong>4.110503</strong></div>-->
+<!--                    <div>Время: <strong>2.169</strong>с</div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="result main-block">-->
+<!--            <h2>Результат 1</h2>-->
+<!--            <div class="main-block main-block-white">-->
+
+
+
+<!--            </div>-->
+<!--        </div>-->
+        </div>
+
+
+        <div class="annealing__results" id="resultAnnealing">
+<!--            <div class="result main-block">-->
+<!--                <h2>Результат 1</h2>-->
+<!--                <div class="main-block main-block-white">-->
+<!--                    <div>xMin = <strong>1.042679</strong></div>-->
+<!--                    <div>yMin = <strong>1.012573</strong></div>-->
+<!--                    <div>F = <strong>4.110503</strong></div>-->
+<!--                    <div>Время: <strong>2.169</strong>с</div>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+    </section>
+
+
+    <!--    <section class="monteCarlo">-->
+    <!--        <form action="" method="post" id="formAnnealing" class="formMonte">-->
+    <!--            <div class="borders">-->
+    <!--                <input type="text" placeholder="Левая граница" name="leftBorder" class="leftBorder"/>-->
+    <!--                <input type="text" placeholder="Правая граница" name="rightBorder" class="rightBorder"/>-->
+    <!--            </div>-->
+
+    <!--            <input type="text" placeholder="Функция" name="fnInput" class="fnMonte"/>-->
+    <!--            <button type="submit" class="submit">Начать подсчет!</button>-->
+    <!--        </form>-->
+
+    <!--        <div class="result" id="resultAnnealing">-->
+    <!--            <div class="loader" id="annealingLoader">-->
+    <!--                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:block;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">-->
+    <!--                    <defs>-->
+    <!--                        <path id="path" d="M50 15A15 35 0 0 1 50 85A15 35 0 0 1 50 15" fill="none"></path>-->
+    <!--                        <path id="patha" d="M0 0A15 35 0 0 1 0 70A15 35 0 0 1 0 0" fill="none"></path>-->
+    <!--                    </defs><g transform="rotate(0 50 50)">-->
+    <!--                    <use xlink:href="#path" stroke="#000000" stroke-width="3"></use>-->
+    <!--                </g><g transform="rotate(60 50 50)">-->
+    <!--                    <use xlink:href="#path" stroke="#000000" stroke-width="3"></use>-->
+    <!--                </g><g transform="rotate(120 50 50)">-->
+    <!--                    <use xlink:href="#path" stroke="#000000" stroke-width="3"></use>-->
+    <!--                </g><g transform="rotate(0 50 50)">-->
+    <!--                    <circle cx="50" cy="15" r="9" fill="#e15b64">-->
+    <!--                        <animateMotion dur="1s" repeatCount="indefinite" begin="0s">-->
+    <!--                            <mpath xlink:href="#patha"></mpath>-->
+    <!--                        </animateMotion>-->
+    <!--                    </circle>-->
+    <!--                </g><g transform="rotate(60 50 50)">-->
+    <!--                    <circle cx="50" cy="15" r="9" fill="#f8b26a">-->
+    <!--                        <animateMotion dur="1s" repeatCount="indefinite" begin="-0.16666666666666666s">-->
+    <!--                            <mpath xlink:href="#patha"></mpath>-->
+    <!--                        </animateMotion>-->
+    <!--                    </circle>-->
+    <!--                </g><g transform="rotate(120 50 50)">-->
+    <!--                    <circle cx="50" cy="15" r="9" fill="#abbd81">-->
+    <!--                        <animateMotion dur="1s" repeatCount="indefinite" begin="-0.3333333333333333s">-->
+    <!--                            <mpath xlink:href="#patha"></mpath>-->
+    <!--                        </animateMotion>-->
+    <!--                    </circle>-->
+    <!--                </g>-->
+    <!--                </svg>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </section>-->
+
+</div>
+
+<script src="assets/lib/Math.js"></script>
+<script src="assets/js/index.js"></script>
+<!--<script src="assets/js/MK.js"></script>-->
+</body>
+</html>
