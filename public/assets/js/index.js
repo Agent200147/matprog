@@ -195,7 +195,7 @@ window.addEventListener('load', () => {
     }
 
     myWorkerAnnealing.onmessage = function(e) {
-        const progressBar = document.getElementById(`progressAnnealing${monteI}`)
+        const progressBar = document.getElementById(`progressAnnealing${annealingI}`)
 
         if(e.data.length !== 4){
             btnSubmit.setAttribute('disabled', 'disabled')
@@ -204,11 +204,11 @@ window.addEventListener('load', () => {
             return false
         }
         progressBar.style.transform = 'translateY(226px)'
-        const output = document.querySelector(`.main-block-annealing-${monteI}`)
-        const annealingLoader = document.getElementById(`annealingLoader${monteI}`)
+        const output = document.querySelector(`.main-block-annealing-${annealingI}`)
+        const annealingLoader = document.getElementById(`annealingLoader${annealingI}`)
         annealingLoader.style.display = 'none'
 
-        // output.innerHTML = `<h2>Результат ${monteI}</h2>`
+        // output.innerHTML = `<h2>Результат ${annealingI}</h2>`
         // const output2 = document.createElement('div')
         // output2.classList.add('main-block', 'main-block-white')
         annealingI++
