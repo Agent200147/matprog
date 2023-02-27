@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/styles/index.css">
+    <link rel="shortcut icon" href="assets/img/tabler_math-function.png" type="image/x-icon">
+    <title>Mathprog</title>
+</head>
+<body>
+<header class="header">
+    <div class="header__wrapper">
+        <nav class="menu secondTab">
+            <div class="menu__item" data-link="firstTab">Монте-Карло и имитация отжига</div>
+            <div class="menu__item" data-link="secondTab">Генетический алгоритм</div>
+        </nav>
+    </div>
+</header>
+<div class="wrapper secondTab">
+    <div class="firsTab__wrapper">
+        <h1 class="title text-medium">1) Реализация и исследование методов
+            <br>
+            Монте-Карло и имитации отжига
+        </h1>
+        <form action="" method="post" id="form1" class="form">
+            <div class="commonData main-block">
+                <h2 class="title commonData__title text-medium">Общие входные данные:</h2>
+                <div class="commonData__inputs">
+                    <div class="borders">
+                        Границы: <span class="scobka">(</span>
+                        <input required type="text" data-autocomplete="-10" placeholder="-10" name="leftBorder" class="leftBorder"/>
+                        <span class="tz">;</span>
+                        <input required type="text" data-autocomplete="10" placeholder="10" name="rightBorder" class="rightBorder"/>
+                        <span class="scobka">)</span>
+                    </div>
+                    <div class="function">
+                        Функция: <input required type="text" data-autocomplete="x^2 + y^2 - 5" placeholder="x^2 + y^2 - 5" name="fnInput" class="fn"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="methods">
+                <div class="monteKarlo main-block">
+                    <h2 class="title commonData__title text-medium">Монте-Карло:</h2>
+                    <input required type="text" data-autocomplete="100000" placeholder="Кол-во итераций" name="monteIteration"/>
+                </div>
+                <div class="annealing main-block">
+                    <h2 class="title commonData__title text-medium">Имитация отжига:</h2>
+                    <div class="annealing__inputs">
+                        <input required type="text" data-autocomplete="500" placeholder="Tmax" name="annealingT"/>
+                        <input required type="text" data-autocomplete="0.1" placeholder="r" name="annealingR"/>
+                        <input required type="text" data-autocomplete="10000" placeholder="L" name="annealingL"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button type="submit" class="btn btn-submit" id="btnSubmit1">Начать подсчет!</button>
+                <!--            <button type="button" class="btn btn-submit" id="btnStop">Стоп</button>-->
+                <button type="button" class="btn btn-clear" id="btnClear1">Очистить результаты</button>
+                <button type="button" class="btn btn-reset" id="btnReset1">Сбросить форму</button>
+            </div>
+        </form>
+
+        <section class="results">
+            <div class="laba__results" id="resultMonte">
+
+            </div>
+
+            <div class="laba__results" id="resultAnnealing">
+
+            </div>
+        </section>
+    </div>
+
+<!--    ==================================================================-->
+
+    <div class="secondTab__wrapper">
+        <h1 class="title text-medium">2) Реализация и исследование методов
+            <br>
+            Генетических алгоритмов
+        </h1>
+
+        <form action="" method="post" id="form2" class="form form2">
+            <div class="commonData main-block" id="commonData2">
+                <h2 class="title commonData__title text-medium">Входные данные:</h2>
+                <div class="commonData__inputs2">
+                    <div class="borders borders2">
+                        <div class="border__x">
+                            Границы<strong>&nbspx</strong>: <span class="scobka">(</span>
+                            <input required type="text" data-autocomplete="-10" placeholder="-10" name="leftBorderX" class="leftBorder"/>
+                            <span class="tz">;</span>
+                            <input required type="text" data-autocomplete="10" placeholder="10" name="rightBorderX" class="rightBorder"/>
+                            <span class="scobka">)</span>
+                        </div>
+                        <div class="border__y">
+                            Границы<strong>&nbspy</strong>: <span class="scobka">(</span>
+                            <input required type="text" data-autocomplete="-10" placeholder="-10" name="leftBorderY" class="leftBorder"/>
+                            <span class="tz">;</span>
+                            <input required type="text" data-autocomplete="10" placeholder="10" name="rightBorderY" class="rightBorder"/>
+                            <span class="scobka">)</span>
+                        </div>
+                    </div>
+
+
+                    <div class="function ">
+                        Функция: <input required type="text" data-autocomplete="(x + 2y - 7)^2 + (2x + y -5)^2" placeholder="(x + 2y - 7)^2 + (2x + y -5)^2" name="fnInput" class="fn"/>
+                    </div>
+
+                    <div class="inputs2">
+                        <div>
+                            Размер начальной популяции: <input required type="text" data-autocomplete="80" placeholder="20-100" name="k"/>
+                        </div>
+                        <div>
+                            Количество потомков каждой популяции: <input required type="text" data-autocomplete="100" placeholder="" name="k2"/>
+                        </div>
+                        <div>
+                            Количество поколений: <input required type="text" data-autocomplete="1000" placeholder="" name="n"/>
+                        </div>
+
+                        <div>
+                            Шанс мутации: <input required type="text" data-autocomplete="0.1" placeholder="" name="p"/>
+                        </div>
+                    </div>
+
+                    <div class="checkboxes">
+                        Критерии останова:
+                        <div class="checkboxes__item">
+                            <label for="flagIter">Итерации</label>
+                            <input type="checkbox" name="flagIter" id="flagIter">
+                        </div>
+
+                        <div class="checkboxes__item">
+                            <label for="flagEps">Точность</label>
+                            <input type="checkbox" name="flagEps" id="flagEps">
+                        </div>
+                    </div>
+                    <div id="eps">
+                        <input type="text" data-autocomplete="0.000001" placeholder="Введите точность" name="eps" class="eps-input">
+                        или
+                        <div class="checkboxes__item checkboxes__item-eps">
+                            <label for="flagEps2">Машинная точность</label>
+                            <input type="checkbox" name="flagEps2" id="flagEps2">
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="controls">
+                <button type="submit" class="btn btn-submit" id="btnSubmit2">Начать подсчет!</button>
+                <!--            <button type="button" class="btn btn-submit" id="btnStop">Стоп</button>-->
+                <button type="button" class="btn btn-clear" id="btnClear2">Очистить результаты</button>
+                <button type="button" class="btn btn-reset" id="btnReset2">Сбросить форму</button>
+            </div>
+        </form>
+
+        <section class="results results-2">
+            <div class="laba__results laba__results-2" id="resultGA">
+
+            </div>
+        </section>
+    </div>
+</div>
+
+
+<script src="assets/lib/Math.js"></script>
+<script src="assets/js/index.js"></script>
+<!--<script src="assets/js/MK.js"></script>-->
+</body>
+</html>

@@ -1,5 +1,5 @@
 onmessage = function(e) {
-    importScripts('../lib/Math.js')
+    importScripts('../../lib/Math.js')
 
     const leftBorder = e.data[0]
     const rightBorder = e.data[1]
