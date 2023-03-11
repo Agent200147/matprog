@@ -52,6 +52,36 @@ onmessage = function(e) {
         return arr
     }
 
+    function onePoint2(x,y) {
+        let arg1 = x;
+        let arg2 = y;
+        let points = [ ];
+        // let a1 = Number(arg1).toString(2);
+        // let a2 = Number(arg2).toString(2);
+
+        let max_len = 8;
+        let a1 = x.padStart(max_len, "0");
+        let a2 = y.padStart(max_len, "0");
+        let bp = math.round(math.random(1, max_len));
+        let b1 = a1.substring(0, bp) + a2.substring(bp);
+        let b2 = a2.substring(0, bp) + a1.substring(bp);
+
+        let arr1 = [parseInt(b1, 2)/256, (parseInt(b1, 2)+20)/256]
+        let arr2 = [parseInt(b2, 2)/256, (parseInt(b2, 2)+20)/256]
+
+
+        points[0] = b1
+        points[1] = b2
+        // points[0] = parseInt(b1, 2);
+
+
+
+        // points[1] = parseInt(b2, 2);
+        return points;
+    }
+    // const fromBinaryD = (n, a, b) => a + (parseInt(n, 2)/256 + (parseInt(n, 2)+(b-a))/256)/2*(b-a)
+    const fromBinaryD = (n, a, b) => a + ((parseInt(n, 2)/256 + (parseInt(n, 2)+1)/256)/2*(b-a))
+
     const functionGA = () => {
         const pop = generateNullArr(k)
         const popChild = generateNullArr(k2)
@@ -67,10 +97,13 @@ onmessage = function(e) {
         // #создание начальной популяции случайным образом
         for(let i = 0; i < k; i++){
             pop[i] = generateNullArr(2)
-            pop[i][0] = random(leftBorderX, rightBorderX)
-            pop[i][1] = random(leftBorderY, rightBorderY)
+            pop[i][0] = math.random(leftBorderX, rightBorderX)
+            pop[i][1] = math.random(leftBorderY, rightBorderY)
 
             Fpop[i] = fn(pop[i][0], pop[i][1], fnInput)
+
+            pop[i][0] = pop[i][0].toString(2).padStart(8, "0")
+            pop[i][1] = pop[i][1].toString(2).padStart(8, "0")
         }
 
 
@@ -114,36 +147,38 @@ onmessage = function(e) {
 
                 // #определение генов потомка(оператор скрещивания)
                 popChild[j] = generateNullArr(3)
-                for (let l = 0; l < 2; l++) {
-                    if (math.random(0, 1) < 0.5) {
-                        // #наследование гена от первого родителя
-                        popChild[j][l] = pop[parent1i][l]
-                    }
-                    else {
-                        // #наследование гена от второго родителя
-                        popChild[j][l] = pop[parent2i][l]
-                    }
+                // for (let l = 0; l < 2; l++) {
+                //     if (math.random(0, 1) < 0.5) {
+                //         // #наследование гена от первого родителя
+                //         popChild[j][l] = pop[parent1i][l]
+                //     }
+                //     else {
+                //         // #наследование гена от второго родителя
+                //         popChild[j][l] = pop[parent2i][l]
+                //     }
+                //
+                //     if(math.random(0, 1) <= p){
+                //         // #мутация гена
+                //         // #при мутации ген отклоняется на случайное число не больше 0.1 (влево или вправо)
+                //         popChild[j][l] += math.random(-0.1, 0.1)
+                //
+                //         // #проверка границ (чтобы не выйти из начальных ограничений)
+                //         if(popChild[j][l] < leftBorderX){
+                //             popChild[j][l] = leftBorderX
+                //
+                //         }
+                //         if(popChild[j][l] > rightBorderX){
+                //             popChild[j][l] = rightBorderX
+                //         }
+                //     }
+                // }
 
-                    if(math.random(0, 1) <= p){
-                        // #мутация гена
-                        // #при мутации ген отклоняется на случайное число не больше 0.1 (влево или вправо)
-                        popChild[j][l] += math.random(-0.1, 0.1)
 
-                        // #проверка границ (чтобы не выйти из начальных ограничений)
-                        if(popChild[j][l] < leftBorderX){
-                            popChild[j][l] = leftBorderX
 
-                        }
-                        if(popChild[j][l] > rightBorderX){
-                            popChild[j][l] = rightBorderX
-                        }
-                    }
-                }
-
-                // popChild[j] = onePoint3(pop[parent1i][0], pop[parent2i][1])
+                popChild[j] = onePoint2(pop[parent1i][0], pop[parent2i][1])
 
                 // #вычисление значения функции в полученной точке-потомке
-                popChild[j][2] = fn(popChild[j][0], popChild[j][1], fnInput);
+                popChild[j][2] = fn(fromBinaryD(popChild[j][0], leftBorderX, rightBorderX), fromBinaryD(popChild[j][1], leftBorderY, rightBorderY), fnInput);
             }
 
             // #отбор следующего поколения (количество-размер начальной популяции)
@@ -166,14 +201,14 @@ onmessage = function(e) {
             // #пересчет значений функции начальной популяции в следующем поколении
         }
 
-        const xMin = pop[0][0]
-        const yMin = pop[0][1]
+        const xMin = fromBinaryD(pop[0][0], leftBorderX, rightBorderX)
+        const yMin = fromBinaryD(pop[0][1], leftBorderY, rightBorderY)
         const f = pop[0][2]
 
 
         const end = new Date().getTime()
         const time = (end - start) / 1000
-        // return [pop, Pprev, f , fprev]
+        // return [pop, '1', '1' , '1']
         return result = ["xMin = <strong>" + xMin.toFixed(5) + "</strong>",
             "yMin = <strong>" + yMin.toFixed(5) + "</strong>",
             "F = <strong>" + f.toFixed(5) + "</strong>",

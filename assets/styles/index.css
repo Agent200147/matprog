@@ -363,8 +363,7 @@ h2.title{
 
 .borders input{
     text-align: center;
-    width: 80px;
-
+    width: 80px !important;
 }
 
 .function{
@@ -375,6 +374,10 @@ h2.title{
 
 .function input{
     width: 100%;
+}
+
+datalist option{
+    font-size: 24px;
 }
 
 .inputs2{
@@ -561,8 +564,9 @@ h2.title{
 
 .laba__results-2{
     width: 100%;
-    flex-wrap: wrap;
-    flex-direction: row;
+    flex-wrap: wrap-reverse;
+    flex-direction: row-reverse;
+    /*flex-flow: row-reverse;*/
     justify-content: space-between;
 }
 
@@ -578,6 +582,7 @@ h2.title{
     font-size: 24px;
     width: 405px;
     height: 320px;
+    margin-right: auto;
 }
 
 

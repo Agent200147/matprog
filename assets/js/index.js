@@ -361,7 +361,7 @@ window.addEventListener('load', () => {
             return
         }
 
-        if(!epsInput && !flagEps2){
+        if(!epsInput && !flagEps2 && flagEps){
             alert('Выберите точность!')
             return
         }
@@ -448,9 +448,12 @@ window.addEventListener('load', () => {
     }
 
     const arr = [[3, 15], [41, 12], [30, 100]]
+    const arr2 = [12,100,34,-500]
+    let arr3 = [12,100,34]
 
     arr.sort((a,b) => a[1] - b[1])
-    // console.log(math.random(-0.1, 0.1))
+    console.log(math.sum(arr2))
+    console.log(Math.max(...arr3))
 
     // for (let i = 0; i < 10; i++) {
     //     console.log(math.random(1, 10))
@@ -472,4 +475,197 @@ window.addEventListener('load', () => {
     //     }
     // }
     // console.log(k)
+
+    const fn = (x, y, f) => {
+        let scope = {
+            x: x,
+            y: y
+        }
+        return math.evaluate(f, scope)
+    }
+
+    const fff = '4*x*x - 2.1*x*x*x*x + x*x*x*x*x*x/3 + x*y - 4*y*y + 4*y*y*y*y'
+    const fff2 = 'x^6/3 + y^6/3'
+    // console.log(fn(2, 2, fff2))
+    // console.log(Math.abs(4 - 5))
+    // console.log(math.random(0, 1) < 0.5)
+
+    const functions = [
+        {
+            function: '(x + 2y - 7)^2 + (2x + y -5)^2',
+            borderX: '-10',
+            borderY: '10'
+        },
+        {
+            function: '4x^2 - 2.1x^4 + x^6/3 + x*y - 4y^2 + 4y^4',
+            borderX: '-5',
+            borderY: '5'
+        },
+        {
+            function: '2x^2 - 1.05x^4 + x^6/3 + x*y + y^2',
+            borderX: '-5',
+            borderY: '5'
+        },
+        {
+            function: '0.26(x^2 + y^2) - 0.48x*y',
+            borderX: '-10',
+            borderY: '10'
+        },
+        {
+            function: 'x^2 + y^2 - cos(12x) - cos(18y)',
+            borderX: '-1',
+            borderY: '1'
+        },
+        {
+            function: '(x^2 + y^2)/200 - cos(x)*cos(y/sqrt(2)) + 1',
+            borderX: '-100',
+            borderY: '100'
+        },
+        {
+            function: 'x^4 + 4x^3 + 4x^2 + y^2',
+            borderX: '-5',
+            borderY: '5'
+        },
+
+    ]
+
+    const leftBorderXinput = document.getElementById('leftBorderX2')
+    const rightBorderXinput = document.getElementById('rightBorderX2')
+
+    const leftBorderYinput = document.getElementById('leftBorderY2')
+    const rightBorderYinput = document.getElementById('rightBorderY2')
+
+    const fn2 = document.getElementById('fn2')
+
+
+
+
+    var str3 = 'rty123qwe';
+    var found = str3.match(/[a-z\s]+/ig);
+    found.join(""); //rtyqwe
+    let str4 = found.join("")
+    let exception = ['cos', 'sin', 'tan', 'tg', 'ctg']
+    let flag = false
+    exception.forEach((item) => {
+        if(str3.includes(item)){
+            flag = true
+        }
+    })
+
+    fn2.addEventListener('input', (e) => {
+        flag = false
+        exception.forEach((item) => {
+            if(e.target.value.includes(item)){
+                flag = true
+            }
+        })
+        console.log(flag)
+        functions.forEach((item) => {
+
+            if(e.target.value === item.function){
+                leftBorderXinput.value = item.borderX
+                rightBorderXinput.value = item.borderY
+                leftBorderYinput.value = item.borderX
+                rightBorderYinput.value = item.borderY
+            }
+        })
+    })
+
+
+
+    function onePoint(opt) {
+        let arg1 = opt.arg1;
+        let arg2 = opt.arg2;
+        let points = { 1: {}, 2: {} };
+        for (let key in arg1) {
+            let a1 = Number(arg1[key]).toString(2);
+            let a2 = Number(arg2[key]).toString(2);
+
+            let max_len = math.max(a1.length, a2.length);
+            a1 = a1.padStart(max_len, "0");
+            a2 = a2.padStart(max_len, "0");
+            let bp = math.round(math.random(1, max_len));
+            let b1 = a1.substring(0, bp) + a2.substring(bp);
+            let b2 = a2.substring(0, bp) + a1.substring(bp);
+            points[1][key] = parseInt(b1, 2);
+            points[2][key] = parseInt(b2, 2);
+        }
+        return points;
+    }
+
+    const sep = (xs, s) => xs.length ? [xs.slice(0, s), ...sep(xs.slice(s), s)] : []
+
+
+    function crossOne(x,y) {
+        // let arg1 = x;
+        // let arg2 = y;
+        // let points = [ ];
+        // let a1 = arg1
+        // let a2 = arg2
+
+        let a1 = Number(x).toString(2);
+        let a2 = Number(y).toString(2);
+
+        let max_len = 8;
+        a1 = a1.padStart(max_len, "0");
+        a2 = a2.padStart(max_len, "0");
+        // let bp = math.round(math.random(1, max_len));
+        // let b1 = a1.substring(0, bp) + a2.substring(bp);
+        // let b2 = a2.substring(0, bp) + a1.substring(bp);
+
+        // b1 = sep(b1, 4)
+        // a1 = parseInt(a1,2)
+
+        let arr1 = []
+
+        points[0] = a1
+        points[1] = a2
+        return points;
+    }
+
+    const points = {
+        arg1: ['1', '2', '2'],
+        arg2: ['2', '2', '3']
+    }
+
+    function onePoint2(x,y) {
+        let arg1 = x;
+        let arg2 = y;
+        let points = [ ];
+        // let a1 = Number(arg1).toString(2);
+        // let a2 = Number(arg2).toString(2);
+
+        let max_len = 8;
+        let a1 = x.padStart(max_len, "0");
+        let a2 = y.padStart(max_len, "0");
+        let bp = math.round(math.random(1, max_len));
+        let b1 = a1.substring(0, bp) + a2.substring(bp);
+        let b2 = a2.substring(0, bp) + a1.substring(bp);
+
+        let arr1 = [parseInt(b1, 2)/256, (parseInt(b1, 2)+20)/256]
+        let arr2 = [parseInt(b2, 2)/256, (parseInt(b2, 2)+20)/256]
+
+
+        points[0] = b1
+        points[1] = b2
+        // points[0] = parseInt(b1, 2);
+
+
+
+        // points[1] = parseInt(b2, 2);
+        return points;
+    }
+
+    const str = 3
+    let str2 = str.toString(2)
+
+    const fromBinaryD = (n, a, b) => a + (parseInt(n, 2)/256 + (parseInt(n, 2)+1)/256)/2*(b-a)
+
+    str2 = str2.padStart(8, "0");
+    console.log(parseInt(onePoint2('11111000','10111111')[0], 2)  )
+    console.log(fromBinaryD(onePoint2('11111000','10111111')[0], -10, 10) )
+    console.log((math.randomInt(-10, 10)).toString(2).padStart(8, "0"))
+    // console.log(parseInt(onePoint2('10001000','11111111')[0], 2) / 256 * (20) )
+    // console.log(str2)
+
 })

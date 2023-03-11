@@ -1,5 +1,5 @@
 onmessage = function(e) {
-    importScripts('../lib/Math.js')
+    importScripts('../../lib/Math.js')
     const a = e.data[0]
     const b = e.data[1]
     const fnInput = e.data[2]
